@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
 
-/*
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
@@ -17,7 +16,7 @@ statusDB.on('error', console.error.bind(console, 'connection error:'));
 statusDB.once('open', function() {
   console.log('Conectado ao mongoDB com sucesso!');
 })
-*/
+
 
 const dbFind = (id) => {
     return new Promise( (resolve, reject) => {
@@ -62,7 +61,7 @@ app.get('/user/:id', async (req, res) => {
     if(value){
         res.send(`From cache: ${JSON.stringify(value)}`)
     }else{
-        const idValue = await dbFind.dbFind(req.params.id)
+        const idValue = await dbFind(req.params.id)
         await setCache(`get${id}`, idValue)
         res.send(`From BD: ${idValue}`)
     }
